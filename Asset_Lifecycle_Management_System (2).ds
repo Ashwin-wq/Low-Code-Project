@@ -1,0 +1,5277 @@
+/*
+ * Author       : ashwin.c.2024.cse_rajalak856
+ * Generated on : 10-Nov-2026 09:37:07
+ * Version      : 1.0
+ */
+ application "Asset Lifecycle Management System"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "America/Los_Angeles"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form asset_allocation
+		{
+			displayname = "Asset Allocation"
+			success message = "Asset Allocation Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Allocation_ID
+			(
+    			type = text
+				displayname = "Allocation ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			asset
+			(
+				type = list	
+				displayname = "Asset"
+				values  = asset_registry.ID
+    			displayformat = [asset_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			employee
+			(
+				type = list	
+				displayname = "Employee"
+				values  = employee_directory.ID
+    			displayformat = [employee_name.first_name]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Employee_email
+			(
+    			type = email
+				displayname = "Employee email"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			allocation_date
+			(
+    			type = date
+				displayname = "Allocation Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			expected_return_date
+			(
+    			type = date
+				displayname = "Expected Return Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			actual_return_date
+			(
+    			type = date
+				displayname = "Actual Return Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			allocation_purpose
+			(
+    			type = text
+				displayname = "Allocation Purpose"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			handover_notes
+			(
+    			type = textarea
+				displayname = "Handover Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Allocation Draft","Pending Approval","Approved","Rejected","Asset Handover","Active Allocation","Return Initiated","Asset Inspection","Allocation Closed","Dispute Resolution"}
+			}
+		}
+		form asset_audit_history
+		{
+			displayname = "Asset Audit History"
+			success message = "Asset Audit History Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			audit_id
+			(
+    			type = text
+				displayname = "Audit ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			asset
+			(
+				type = list	
+				displayname = "Asset"
+				values  = asset_registry.ID
+    			displayformat = [asset_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			action_performed
+			(
+    			type = text
+				displayname = "Action Performed"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			previous_value
+			(
+    			type = text
+				displayname = "Previous Value"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			new_value
+			(
+    			type = text
+				displayname = "New Value"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			performed_by
+			(
+    			type = name
+				displayname = "Performed By"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			timestamp
+			(
+    			type = datetime
+				displayname = "Timestamp"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			related_request_id
+			(
+    			type = text
+				displayname = "Related Request ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			remarks
+			(
+    			type = textarea
+				displayname = "Remarks"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form asset_registry
+		{
+			displayname = "Asset Registry"
+			success message = "Asset Registry Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have asset_id
+			(
+    			type = text
+				displayname = "Asset ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			asset_category
+			(
+				type = picklist
+				displayname = "Asset Category"
+				values = {"Laptop","Monitor","Desktop","Office Equipment","Printer","Other"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			manufacturer
+			(
+    			type = text
+				displayname = "Manufacturer"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			model_number
+			(
+    			type = text
+				displayname = "Model Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			serial_number
+			(
+    			type = text
+				displayname = "Serial Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			purchase_date
+			(
+    			type = date
+				displayname = "Purchase Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			purchase_cost
+			(
+				displayname = "Purchase Cost"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			warranty_start_date
+			(
+    			type = date
+				displayname = "Warranty Start Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			warranty_end_date
+			(
+    			type = date
+				displayname = "Warranty End Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			asset_condition
+			(
+				type = picklist
+				displayname = "Asset Condition"
+				values = {"New","Poor","Fair","Good"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			asset_status
+			(
+				type = picklist
+				displayname = "Asset Status"
+				values = {"Retired","Available","Under Maintenance","Allocated","Pending Allocation","Disposed"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			qr_code_url
+			(
+    			type = url
+				displayname = "QR Code URL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			notes
+			(
+    			type = textarea
+				displayname = "Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form department_directory
+		{
+			displayname = "Department Directory"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			department_name
+			(
+    			type = text
+				displayname = "Department Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			department_manager
+			(
+    			type = name
+				displayname = "Department Manager"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			department_location
+			(
+    			type = text
+				displayname = "Department Location"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			description
+			(
+    			type = textarea
+				displayname = "Description"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form employee_directory
+		{
+			displayname = "Employee Directory"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			employee_name
+			(
+    			type = name
+				displayname = "Employee Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			work_email
+			(
+    			type = email
+				displayname = "Work Email"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			designation
+			(
+    			type = text
+				displayname = "Designation"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			contact_number
+			(
+    			type = phonenumber
+				displayname = "Contact Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			employment_status
+			(
+				type = picklist
+				displayname = "Employment Status"
+				values = {"Active","Resigned","On Leave","Inactive"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			department
+			(
+				type = list	
+				displayname = "Department"
+				values  = department_directory.ID
+    			displayformat = [department_name]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Date_field
+			(
+    			type = date
+				displayname = "Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form maintenance_request
+		{
+			displayname = "Maintenance Request"
+			success message = "Maintenance Request Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			ticket_id
+			(
+    			type = text
+				displayname = "Ticket ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			asset
+			(
+				type = list	
+				displayname = "Asset"
+				values  = asset_registry.ID
+    			displayformat = [asset_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			reported_by
+			(
+    			type = name
+				displayname = "Reported By"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			issue_category
+			(
+				type = picklist
+				displayname = "Issue Category"
+				values = {"Network","Hardware","Software","Peripherals","Other"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			issue_description
+			(
+    			type = textarea
+				displayname = "Issue Description"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			priority
+			(
+				type = picklist
+				displayname = "Priority"
+				values = {"High","Low","Medium","Critical"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			request_date
+			(
+    			type = date
+				displayname = "Request Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			assigned_technician
+			(
+    			type = name
+				displayname = "Assigned Technician"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ticket_status
+			(
+				type = picklist
+				displayname = "Ticket Status"
+				values = {"Assigned","Submitted","Pending Approval","Closed","Waiting for Parts","In Progress","Resolved"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			diagnosis
+			(
+    			type = textarea
+				displayname = "Diagnosis"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			repair_cost
+			(
+				displayname = "Repair Cost"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			parts_details
+			(
+    			type = textarea
+				displayname = "Parts Details"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			resolution_notes
+			(
+    			type = textarea
+				displayname = "Resolution Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			completion_date
+			(
+    			type = date
+				displayname = "Completion Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Request Submitted","Request Under Review","Request Rejected","Request Approved","Request Awaiting Parts","Technician Assigned","Request Pending Approval","Work In Progress","Technician Reassigned","Diagnosis Complete","Work On Hold","Repair In Progress","Repair Complete","Pending Verification","Request Closed"}
+			}
+		}
+		form user_feedback_simple
+		{
+			displayname = "User Feedback"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have feedback
+			(
+    			type = textarea
+				displayname = "Feedback"
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			sentiment
+			(
+				type = picklist
+				displayname = "Sentiment"
+				maxchar = 100
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+						AI_Properties
+						(
+									fieldtype = SentimentAnalysis
+									basefield = feedback
+						)
+			)
+			analysis_status
+			(
+				type = picklist
+				displayname = "Analysis Status"
+				maxchar = 100
+				values = {"Pending","Completed","Failed"}
+				initial value = "Pending"
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have name_of_user
+			(
+    			type = text
+				displayname = "Name of User"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have email
+			(
+    			type = email
+				displayname = "Email"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form vendor_directory
+		{
+			displayname = "Vendor Directory"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			vendor_name
+			(
+    			type = text
+				displayname = "Vendor Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			contact_person
+			(
+    			type = name
+				displayname = "Contact Person"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			vendor_email
+			(
+    			type = email
+				displayname = "Vendor Email"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			vendor_phone
+			(
+    			type = phonenumber
+				displayname = "Vendor Phone"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			service_category
+			(
+    			type = text
+				displayname = "Service Category"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			vendor_address
+			(
+    			type = address
+				displayname = "Vendor Address"
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+	     			 visibility = false
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+	     			 visibility = false
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+	     			 visibility = false
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+	     			 visibility = false
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+	     			 visibility = false
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "Latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "Longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			vendor_status
+			(
+				type = picklist
+				displayname = "Vendor Status"
+				values = {"Active","Inactive","Pending"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		list asset_allocation_Report
+		{
+			displayName = "All Asset Allocations"
+			show all rows from asset_allocation    
+			(
+				asset as "Asset"
+				employee as "Employee"
+				allocation_date as "Allocation Date"
+				expected_return_date as "Expected Return Date"
+				actual_return_date as "Actual Return Date"
+				allocation_purpose as "Allocation Purpose"
+				handover_notes as "Handover Notes"
+			)
+		}
+		list employee_directory_Report
+		{
+			displayName = "Employee Directory Report"
+			show all rows from employee_directory    
+			(
+				employee_name  as "Employee Name"
+				work_email as "Work Email"
+				designation as "Designation"
+				contact_number as "Contact Number"
+				employment_status as "Employment Status"
+				department as "Department"
+				department.Modified_Time as "Date"
+				(
+					displayformat = fulldate
+				)
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (employment_status == "Active")
+				fields = [employment_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (employment_status == "Inactive")
+				fields = [employment_status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+			)
+		}
+		kanban employee_directory_by_employment_status
+		{
+			displayName = "Employment Statuses"
+			show all rows from employee_directory    
+			(
+				employee_name  as "Employee Name"
+				work_email as "Work Email"
+				designation as "Designation"
+				contact_number as "Contact Number"
+				employment_status as "Employment Status"
+				department as "Department"
+			)
+			options
+			(
+	 			display field = employment_status
+	 		)
+		}
+		list asset_audit_history_Report
+		{
+			displayName = "All Asset Audit Histories"
+			show all rows from asset_audit_history    
+			(
+				audit_id as "Audit ID"
+				asset as "Asset"
+				action_performed as "Action Performed"
+				previous_value as "Previous Value"
+				new_value as "New Value"
+				performed_by  as "Performed By"
+				timestamp as "Timestamp"
+				related_request_id as "Related Request ID"
+				remarks as "Remarks"
+			)
+		}
+		list asset_registry_Report
+		{
+			displayName = "All Asset Registries"
+			show all rows from asset_registry    
+			(
+				asset_id as "Asset ID"
+				asset_category as "Asset Category"
+				manufacturer as "Manufacturer"
+				model_number as "Model Number"
+				serial_number as "Serial Number"
+				purchase_date as "Purchase Date"
+				purchase_cost as "Purchase Cost"
+				(
+					display = total,average,min,max	
+				)
+				warranty_start_date as "Warranty Start Date"
+				warranty_end_date as "Warranty End Date"
+				asset_condition as "Asset Condition"
+				asset_status as "Asset Status"
+				qr_code_url as "QR Code URL"
+				notes as "Notes"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (asset_condition == "Fair")
+				fields = [asset_condition]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (asset_condition == "Good")
+				fields = [asset_condition]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (asset_condition == "Poor")
+				fields = [asset_condition]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban asset_registry_by_asset_category
+		{
+			displayName = "Asset Categories"
+			show all rows from asset_registry    
+			(
+				asset_id as "Asset ID"
+				asset_category as "Asset Category"
+				manufacturer as "Manufacturer"
+				model_number as "Model Number"
+				serial_number as "Serial Number"
+				purchase_date as "Purchase Date"
+				purchase_cost as "Purchase Cost"
+				(
+					display = total,average,min,max	
+				)
+				warranty_start_date as "Warranty Start Date"
+				warranty_end_date as "Warranty End Date"
+				asset_condition as "Asset Condition"
+				asset_status as "Asset Status"
+				qr_code_url as "QR Code URL"
+				notes as "Notes"
+			)
+			options
+			(
+	 			display field = asset_category
+	 		)
+		}
+		list maintenance_request_Report
+		{
+			displayName = "All Maintenance Requests"
+			show all rows from maintenance_request    
+			(
+				ticket_id as "Ticket ID"
+				asset as "Asset"
+				reported_by  as "Reported By"
+				issue_category as "Issue Category"
+				issue_description as "Issue Description"
+				priority as "Priority"
+				request_date as "Request Date"
+				assigned_technician  as "Assigned Technician"
+				ticket_status as "Ticket Status"
+				diagnosis as "Diagnosis"
+				repair_cost as "Repair Cost"
+				(
+					display = total,average,min,max	
+				)
+				parts_details as "Parts Details"
+				resolution_notes as "Resolution Notes"
+				completion_date as "Completion Date"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (priority == "High")
+				fields = [priority]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (priority == "Low")
+				fields = [priority]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (priority == "Medium")
+				fields = [priority]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+				"Maintenance Status Highlight"
+				{
+				fields = [ticket_id]
+				format = "font-weight:bold;color:#333;"
+				}
+			)
+		}
+		kanban maintenance_request_by_ticket_status
+		{
+			displayName = "Ticket Statuses"
+			show all rows from maintenance_request    
+			(
+				ticket_id as "Ticket ID"
+				asset as "Asset"
+				reported_by  as "Reported By"
+				issue_category as "Issue Category"
+				issue_description as "Issue Description"
+				priority as "Priority"
+				request_date as "Request Date"
+				assigned_technician  as "Assigned Technician"
+				ticket_status as "Ticket Status"
+				diagnosis as "Diagnosis"
+				repair_cost as "Repair Cost"
+				(
+					display = total,average,min,max	
+				)
+				parts_details as "Parts Details"
+				resolution_notes as "Resolution Notes"
+				completion_date as "Completion Date"
+			)
+			options
+			(
+	 			display field = ticket_status
+	 		)
+		}
+		list department_directory_Report
+		{
+			displayName = "Department Directory Report"
+			show all rows from department_directory    
+			(
+				department_name as "Department Name"
+				department_manager  as "Department Manager"
+				department_location as "Department Location"
+				description as "Description"
+			)
+		}
+		list vendor_directory_Report
+		{
+			displayName = "Vendor Directory Report"
+			show all rows from vendor_directory    
+			(
+				vendor_name as "Vendor Name"
+				contact_person  as "Contact Person"
+				vendor_email as "Vendor Email"
+				vendor_phone as "Vendor Phone"
+				service_category as "Service Category"
+				vendor_address  as "Vendor Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				vendor_status as "Vendor Status"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (vendor_status == "Inactive")
+				fields = [vendor_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (vendor_status == "Pending")
+				fields = [vendor_status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+			)
+		}
+		kanban vendor_directory_by_vendor_status
+		{
+			displayName = "Vendor Statuses"
+			show all rows from vendor_directory    
+			(
+				vendor_name as "Vendor Name"
+				contact_person  as "Contact Person"
+				vendor_email as "Vendor Email"
+				vendor_phone as "Vendor Phone"
+				service_category as "Service Category"
+				vendor_address  as "Vendor Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				vendor_status as "Vendor Status"
+			)
+			options
+			(
+	 			display field = vendor_status
+	 		)
+		}
+		list Maintenance_Requests_Overview
+		{
+			displayName = "Maintenance Requests Overview"
+			show all rows from maintenance_request    
+			(
+				ticket_id as "Ticket ID"
+				asset as "Asset"
+				reported_by  as "Reported By"
+				issue_category as "Issue Category"
+				issue_description as "Issue Description"
+				priority as "Priority"
+				request_date as "Request Date"
+				assigned_technician  as "Assigned Technician"
+				ticket_status as "Ticket Status"
+				diagnosis as "Diagnosis"
+				repair_cost as "Repair Cost"
+				parts_details as "Parts Details"
+				resolution_notes as "Resolution Notes"
+				completion_date as "Completion Date"
+			)
+		}
+		list smart_allocation_report
+		{
+			displayName = "Smart Allocation Recommendations"
+			show all rows from asset_registry    
+			(
+				asset_id as "Asset ID"
+				asset_category as "Asset Category"
+				asset_status as "Asset Status"
+				asset_condition as "Asset Condition"
+				serial_number as "Serial Number"
+				manufacturer as "Manufacturer"
+				model_number as "Model Number"
+			)
+			filters
+			(
+				"Available Assets"  :  asset_status == "Available"
+			)
+			sort by
+			(
+				asset_status ascending
+				asset_id ascending
+			)
+		}
+		list anomaly_detection_report
+		{
+			displayName = "Anomaly Detection Dashboard"
+			show all rows from asset_registry    
+			(
+				asset_id as "Asset ID"
+				serial_number as "Serial Number"
+				asset_status as "Asset Status"
+				asset_condition as "Asset Condition"
+				purchase_cost as "Purchase Cost"
+				notes as "Notes"
+			)
+			sort by
+			(
+				asset_status ascending
+			)
+		}
+		list predictive_maintenance_report
+		{
+			displayName = "Predictive Maintenance Analysis"
+			show all rows from asset_registry    
+			(
+				asset_id as "Asset ID"
+				asset_category as "Asset Category"
+				asset_status as "Asset Status"
+				asset_condition as "Asset Condition"
+				purchase_date as "Purchase Date"
+				purchase_cost as "Purchase Cost"
+				warranty_end_date as "Warranty End Date"
+			)
+			sort by
+			(
+				asset_id ascending
+			)
+		}
+		list maintenance_analytics_report
+		{
+			displayName = "Maintenance Analytics"
+			show all rows from maintenance_request    
+			(
+				ticket_id as "Ticket ID"
+				asset as "Asset"
+				issue_category as "Issue Category"
+				priority as "Priority"
+				ticket_status as "Ticket Status"
+				request_date as "Request Date"
+				repair_cost as "Repair Cost"
+				assigned_technician  as "Assigned Technician"
+	 			(
+	      			displayformat = [first_name+""+last_name]
+	 			)
+			)
+			sort by
+			(
+				ticket_status ascending
+				request_date descending
+			)
+		}
+		summary ai_reports_summary
+		{
+			displayName = "AI Reports Summary"
+			show all rows from asset_registry    
+			(
+				asset_id as "Asset ID"
+				asset_category as "Asset Category"
+				asset_status as "Asset Status"
+				asset_condition as "Asset Condition"
+				purchase_date as "Purchase Date"
+				purchase_cost as "Purchase Cost"
+			)
+			sort by
+			(
+				asset_category ascending
+			)
+			options
+			(
+				display rows = 10
+				display records per row = 3
+			)
+		}
+		list recent_negative_feedback
+		{
+			displayName = "Recent Negative Feedback"
+			show all rows from user_feedback_simple    
+			(
+				name_of_user as "Name of User"
+				email as "Email"
+				feedback as "Feedback"
+				sentiment as "Sentiment"
+				analysis_status as "Analysis Status"
+			)
+			filters
+			(
+				"Negative Feedback"  :  sentiment == "Negative"
+			)
+			sort by
+			(
+				analysis_status descending
+			)
+		}
+		list all_feedback
+		{
+			displayName = "All Feedback"
+			show all rows from user_feedback_simple    
+			(
+				name_of_user as "Name of User"
+				email as "Email"
+				feedback as "Feedback"
+				sentiment as "Sentiment"
+				analysis_status as "Analysis Status"
+			)
+		}
+		list sentiment_counts
+		{
+			displayName = "Sentiment Counts"
+			show all rows from user_feedback_simple    
+			(
+				sentiment as "Sentiment"
+			)
+			group by
+			(
+				sentiment ascending
+			)
+		}
+	}
+	pages
+	{
+		page Dashboard
+		{
+			displayname = "Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\twebDeviceConfig='{\"layout\":{\"displayType\":\"card\",\"design\":\"fluid\",\"style\":\"padding-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;\"}}'\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Allocated Assets'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#909090'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t\tcriteria = 'asset_status == &quot;Allocated&quot;'\n\t  value = 'thisapp.asset_registry.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Allocated Assets'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Total Assets'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme:60'\n\tsize = '40px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = '#FFFFFF'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.asset_registry.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#909090'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Total Assets Registered'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Under Maintainence'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#AA550C'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t\tcriteria = 'asset_status == &quot;Under Maintenance&quot;'\n\t  value = 'thisapp.asset_registry.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Under Maintainence'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Available Assets'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#FF4C2F'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t\tcriteria = 'asset_status == &quot;Available&quot;'\n\t  value = 'thisapp.asset_registry.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Available Assets'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Asset Distribution by Status'\n\n\ttype = 'Pie'\n\txtitle = 'Asset Status'\n\tytitle = 'Number of Assets'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme1'\n\tlegendPos = 'center.top'\n\theightType = 'custom'\n\theightValue = '150px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'asset_registry'\n\txfield = 'asset_status'\n\tyfields = 'count:asset_id'\n\tyAxisInterval = '1'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Assets By Category'\n\n\ttype = 'Column'\n\txtitle = 'Asset Category'\n\tytitle = 'Number of Assets'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme1'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'asset_registry'\n\txfield = 'asset_category'\n\tyfields = 'count:asset_id'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='View Maintenance Requests'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#6E1CF4'\n    borderWidth = '0px'\n\n\t  value = 'Maintenance Requests'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<button \n\t\tmargin = '0px'\n\tpaddingTop = '12px'\n\tpaddingLeft = '15px'\n\tpaddingRight = '15px'\n\tpaddingBottom = '12px'\n\n    action = 'OpenReport'\n\t\tcomponentLinkName = 'maintenance_request_Report'\n\t\ttarget = 'new-window'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\ttext ='View All Maintenance Requests'\n\t\tbgColor = 'theme'\n\t\tcornerRadius = '3px' \n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			auto_set_asset_status as "Auto Set Asset Status"
+			{
+				type =  form
+				form = asset_registry
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Check if purchase_date field has a valid value
+										if(input.purchase_date.isNull())
+										{
+											// No purchase date, skip status update
+											return;
+										}
+										// Calculate years between purchase date and current date
+										yearsSincePurchase = input.purchase_date.yearsBetween(now);
+										// If purchase date exceeds 10 years, set status to Retired
+										if(yearsSincePurchase > 10)
+										{
+											input.asset_status = "Retired";
+										}
+						)
+					}
+				}
+
+			}
+			set_asset_status_on_return as "Set Asset Status on Return"
+			{
+				type =  form
+				form = asset_allocation
+
+				record event = on edit
+
+				on update of actual_return_date
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the asset record associated with the current allocation
+										assetRecord = asset_registry[ID == input.asset.ID];
+										// Check if the asset record exists
+										if(assetRecord != null)
+										{
+											// Update the asset status to 'Available'
+											assetRecord.asset_status="Available";
+											// Log the update for debugging
+											info "Asset " + assetRecord.asset_id + " status updated to Available";
+										}
+										else
+										{
+											info "Asset record not found for ID: " + input.asset.ID;
+										}
+						)
+					}
+				}
+
+			}
+			validate_asset_allocation_fields as "Validate Asset Allocation Fields"
+			{
+				type =  form
+				form = asset_allocation
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Validate that required fields are not null or empty before form submission
+										// Check if allocation_date is provided
+										if(input.allocation_date.isNull())
+										{
+											alert(allocation_date,"Allocation Date is required");
+											cancel submit;
+										}
+										// Check if employee is selected (multi-select lookup)
+										if(input.employee.isNull() || input.employee.isEmpty())
+										{
+											alert(employee,"At least one employee must be selected");
+											cancel submit;
+										}
+										// Check if asset is selected (multi-select lookup)
+										if(input.asset.isNull() || input.asset.isEmpty())
+										{
+											alert(asset,"At least one asset must be selected");
+											cancel submit;
+										}
+										// Check if allocation_purpose is provided
+										if(input.allocation_purpose.isBlank())
+										{
+											alert(allocation_purpose,"Allocation Purpose is required");
+											cancel submit;
+										}
+										// Check if expected_return_date is provided
+										if(input.expected_return_date.isNull())
+										{
+											alert(expected_return_date,"Expected Return Date is required");
+											cancel submit;
+										}
+										// Validate that expected_return_date is not in the past
+										if(input.expected_return_date < zoho.currentdate)
+										{
+											alert(expected_return_date,"Expected Return Date cannot be in the past");
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			validate_asset_allocation as "Validate Asset Allocation"
+			{
+				type =  form
+				form = asset_allocation
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the asset record based on the selected asset in the allocation form
+										selectedAsset = asset_registry[ID == input.asset.ID];
+										// Check if an asset was actually selected
+										if(input.asset.isNull())
+										{
+											alert(asset,"Please select an asset to allocate");
+											cancel submit;
+										}
+										else if(selectedAsset.count() == 0)
+										{
+											alert(asset,"Selected asset record not found");
+											cancel submit;
+										}
+										else
+										{
+											// Get the current status of the asset
+											assetStatus = selectedAsset.asset_status;
+											// Define statuses that prevent allocation
+											unavailableStatuses = {"Retired","Under Maintenance","Disposed"};
+											// Check if the asset status is in the list of unavailable statuses
+											isUnavailable = false;
+											for each  status in unavailableStatuses
+											{
+												if(assetStatus == status)
+												{
+													isUnavailable = true;
+													break;
+												}
+											}
+											if(isUnavailable)
+											{
+												alert(asset,"Cannot allocate this asset. Current status is: " + assetStatus);
+												cancel submit;
+											}
+											else if(assetStatus == "Allocated")
+											{
+												alert(asset,"Cannot allocate this asset. It is currently allocated to another employee.");
+												cancel submit;
+											}
+											else if(assetStatus == "Pending Allocation")
+											{
+												alert(asset,"Cannot allocate this asset. It is pending allocation.");
+												cancel submit;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			prevent_duplicate_asset_identifiers as "Prevent Duplicate Asset Identifiers"
+			{
+				type =  form
+				form = asset_registry
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Check if asset identifier (serial_number or model_number) already exists
+										if(!input.serial_number.isNull())
+										{
+											existingRecords = asset_registry[serial_number == input.serial_number && ID != input.ID];
+											if(existingRecords.count() > 0)
+											{
+												alert "An asset with this Serial Number already exists. Please use a unique identifier.";
+												cancel submit;
+											}
+										}
+										if(!input.model_number.isNull())
+										{
+											existingRecords = asset_registry[model_number == input.model_number && ID != input.ID];
+											if(existingRecords.count() > 0)
+											{
+												alert "An asset with this Model Number already exists. Please use a unique identifier.";
+												cancel submit;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			set_asset_status_on_maintenance as "Set Asset Status on Maintenance Request"
+			{
+				type =  form
+				form = maintenance_request
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the asset record referenced in the maintenance request
+										assetRecord = asset_registry[ID == input.asset.ID];
+										// Check if asset record exists
+										if(assetRecord != null)
+										{
+											// Update the asset status to "Under Maintenance"
+											assetRecord.asset_status="Under Maintenance";
+											// Log the update for debugging
+											info "Asset status updated to Under Maintenance for asset: " + assetRecord.asset_id;
+										}
+										else
+										{
+											info "Error: Asset record not found for ID: " + input.asset.ID;
+										}
+						)
+					}
+				}
+
+			}
+			set_asset_status_on_maintenance_complete as "Set Asset Status on Maintenance Completion"
+			{
+				type =  form
+				form = maintenance_request
+
+				record event = on edit
+
+				on update of ticket_status
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Check if the ticket status has been updated to 'Resolved'
+										if(input.ticket_status == "Resolved")
+										{
+											// Fetch the asset record associated with this maintenance request
+											// asset is a multi_select_lookup referring to asset_registry
+											assetRecords = asset_registry[ID in input.asset.ID.getall()];
+											// Iterate through each asset and update its status to 'Available'
+											for each  assetRecord in assetRecords
+											{
+												assetRecord.asset_status="Available";
+											}
+											info "Asset status updated to Available for resolved maintenance request";
+										}
+						)
+					}
+				}
+
+			}
+			log_maintenance_request_audit as "Log Maintenance Request Audit"
+			{
+				type =  form
+				form = maintenance_request
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the maintenance request record
+										maintenanceRecord = maintenance_request[ID == input.ID];
+										// Get the asset record ID
+										assetID = maintenanceRecord.asset;
+										// Fetch the asset record
+										assetRecord = asset_registry[ID == assetID];
+										// Insert the audit record
+										insert into asset_audit_history
+										[
+											asset=assetID
+											action_performed="Maintenance Request Created"
+											previous_value=assetRecord.asset_status
+											new_value="Under Maintenance"
+											related_request_id=input.ID
+											timestamp=zoho.currenttime
+											remarks="Maintenance request " + input.ticket_id + " created for asset " + assetRecord.asset_id
+											performed_by.first_name=zoho.loginuser
+											Added_User=zoho.loginuser
+										]
+										// Update asset status
+										update asset_registry[ID == assetID]
+										[
+											asset_status="Under Maintenance"
+										];
+						)
+					}
+				}
+
+			}
+			log_maintenance_completion_audit as "Log Maintenance Completion Audit"
+			{
+				type =  form
+				form = maintenance_request
+
+				record event = on edit
+
+				on update of ticket_status
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the maintenance request record
+										maintenanceRecord = maintenance_request[ID == input.ID];
+										// Check if the ticket status indicates completion
+										if(input.ticket_status == "Closed" || input.ticket_status == "Resolved")
+										{
+											// Prepare the audit record data
+											auditRecord = Map();
+											// Set composite field sub-fields for 'performed_by' (NAME type)
+											// Extract name parts from the Modified_User system field (users type) if needed, 
+											// or leave as null if the system handles it. Since 'performed_by' is NAME type, 
+											// we must set its sub-fields individually.
+											// Note: Modified_User is a 'users' type, not a 'NAME' type. 
+											// We will set the sub-fields to null or empty if we don't have a direct NAME record.
+											// However, usually in Creator, if you assign a 'users' record to a 'NAME' field, it might fail.
+											// Let's try to set the sub-fields explicitly to avoid the string assignment error.
+											// Since we don't have a direct NAME record for the user, we'll set sub-fields to empty or null.
+											// But wait, the error says "You cannot assign 'STRING' value to Name Field".
+											// This likely happened because we tried to assign a string to the whole 'performed_by' field.
+											// We must assign to sub-fields: performed_by.first_name, performed_by.last_name, etc.
+											// Since 'Modified_User' is a 'users' type, it has sub-fields like first_name, last_name.
+											// Let's access them.
+											// Access the user's name components from Modified_User (users type)
+											// The 'users' type has sub-fields: display_name, user_name, first_name, last_name, email
+											// We need to map these to the 'NAME' type sub-fields: prefix, first_name, last_name, suffix
+											// Set the sub-fields of the 'performed_by' NAME field
+											auditRecord.put("performed_by.first_name",maintenanceRecord.Modified_User.first_name);
+											auditRecord.put("performed_by.last_name",maintenanceRecord.Modified_User.last_name);
+											auditRecord.put("performed_by.prefix",null);
+											auditRecord.put("performed_by.suffix",null);
+											// Insert the audit record
+											insert into asset_audit_history
+											[
+												asset=maintenanceRecord.asset
+												action_performed="Maintenance Completed"
+												new_value=input.ticket_status
+												previous_value=input.ticket_status
+												remarks=input.resolution_notes
+												timestamp=now
+												performed_by.first_name=maintenanceRecord.Modified_User.first_name
+												performed_by.last_name=maintenanceRecord.Modified_User.last_name
+												performed_by.prefix=null
+												performed_by.suffix=null
+												related_request_id=maintenanceRecord.ticket_id
+												Added_User=zoho.loginuser
+											]
+										}
+						)
+					}
+				}
+
+			}
+			validate_maintenance_request_fields as "Validate Maintenance Request Fields"
+			{
+				type =  form
+				form = maintenance_request
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Validate Issue Description
+										if(isBlank(input.issue_description))
+										{
+											alert "Issue Description is required";
+											cancel submit;
+										}
+										// Validate Priority
+										if(isBlank(input.priority))
+										{
+											alert "Priority is required";
+											cancel submit;
+										}
+										// Validate Asset
+										if(input.asset == null)
+										{
+											alert "Asset selection is required";
+											cancel submit;
+										}
+										// Validate Request Date
+										if(input.request_date == null)
+										{
+											alert "Request Date is required";
+											cancel submit;
+										}
+										// Validate Reported By
+										if(input.reported_by == null)
+										{
+											alert "Reported By is required";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			asset_registry_submission_notification as "Asset Registry Submission Notification"
+			{
+				type =  form
+				form = asset_registry
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch administrator email from system variable
+										adminEmail = zoho.adminuserid;
+										// Get current date and time
+										submissionDateTime = zoho.currenttime;
+										// Get the record ID of the newly submitted asset
+										recordID = input.ID;
+										// Get the asset name from the submitted record
+										assetName = input.asset_id;
+										// Get the submitter's email (Added_User email)
+										submitterEmail = input.Added_User.email;
+										// Construct the email message
+										emailMessage = "<p>Dear Administrator,</p>" + "<p>A new asset has been registered in the system.</p>" + "<p><strong>Asset Name:</strong> " + assetName + "</p>" + "<p><strong>Record ID:</strong> " + recordID + "</p>" + "<p><strong>Submission Date/Time:</strong> " + toString(submissionDateTime) + "</p>" + "<p><strong>Submitted By:</strong> " + submitterEmail + "</p>" + "<p>Please review the new asset entry.</p>" + "<p>Best regards,<br>Asset Lifecycle Management System</p>";
+										// Send email notification to administrator
+										sendmail
+										[
+											from :zoho.adminuserid
+											to :adminEmail
+											subject :"New Asset Registry Record Submitted - " + assetName
+											message :emailMessage
+											content type :HTML
+										]
+						)
+					}
+				}
+
+			}
+			maintenance_request_submission_notification as "Maintenance Request Submission Notification"
+			{
+				type =  form
+				form = maintenance_request
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the admin email address
+										adminEmail = thisapp.permissions.adminEmailIds();
+										// Get the current submission details from input
+										submissionDate = zoho.currenttime;
+										ticketID = input.ticket_id;
+										assetName = input.asset.asset_id;
+										issueDescription = input.issue_description;
+										// Fetch the submitter's name components from the reported_by NAME field
+										submitterName = input.reported_by;
+										submitterFirstName = submitterName.first_name;
+										submitterLastName = submitterName.last_name;
+										// Search for the employee in employee_directory to get their work_email
+										employeeRecord = employee_directory[employee_name.first_name == submitterFirstName && employee_name.last_name == submitterLastName];
+										if(employeeRecord != null)
+										{
+											submitterEmail = employeeRecord.work_email;
+										}
+										else
+										{
+											submitterEmail = "Unknown";
+										}
+										// Construct the email message
+										emailMessage = "<h3>New Maintenance Request Submitted</h3>" + "<p><strong>Ticket ID:</strong> " + ticketID + "</p>" + "<p><strong>Asset Name:</strong> " + assetName + "</p>" + "<p><strong>Issue Description:</strong> " + issueDescription + "</p>" + "<p><strong>Submission Date/Time:</strong> " + toString(submissionDate) + "</p>" + "<p><strong>Submitted By:</strong> " + submitterEmail + "</p>";
+										// Send email notification to administrator
+										sendmail
+										[
+											from :zoho.adminuserid
+											to :adminEmail
+											subject :"New Maintenance Request: " + ticketID
+											message :emailMessage
+											content type :HTML
+										]
+						)
+					}
+				}
+
+			}
+			email as "email"
+			{
+				type =  form
+				form = employee_directory
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : "zoho.loginuserid"
+							subject : "Record Added or Updated"
+							message : "<div>${zoho.loginuserid} has added or updated a record in form Employee Directory<br></div>"
+							attachments : template : _default1 as inline
+						)
+					}
+				}
+
+			}
+			email1 as "email"
+			{
+				type =  form
+				form = asset_allocation
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : "zoho.loginuserid"
+							subject : "Record Added or Updated"
+							message : "<div>${zoho.loginuserid} has been allocated with the ${asset} from&nbsp;${allocation_date} to&nbsp;${expected_return_date}<br></div>"
+							attachments : template : _default1 as inline
+						)
+					}
+				}
+
+			}
+			email2 as "email"
+			{
+				type =  form
+				form = vendor_directory
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : "zoho.loginuserid"
+							subject : "Record Added or Updated"
+							message : "<div>${zoho.loginuserid} has appointed&nbsp;${contact_person.first_name} as vendor<br></div>"
+							attachments : template : _default1 as inline
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			warranty_expiry_alert as "Warranty Expiry Alert"
+			{
+				type =  schedule
+				form = asset_registry
+					status = inactive
+				start = warranty_end_date at "10:00:00"
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						// Fetch the warranty end date from the current input record
+										warrantyEndDate = input.warranty_end_date;
+										// Check if warranty end date is present and not null
+										if(!warrantyEndDate.isNull())
+										{
+											// Calculate the date 30 days before warranty end date
+											thirtyDaysBefore = warrantyEndDate.addDay(-30);
+											// Get today's date
+											currentDate = today;
+											// Check if today is within 30 days of warranty end date
+											if(currentDate >= thirtyDaysBefore && currentDate <= warrantyEndDate)
+											{
+												// Fetch the asset record to get vendor information
+												// First, we need to find the vendor associated with this asset
+												// Assuming there's a vendor field or we need to search vendor_directory
+												// Get asset details
+												assetName = input.asset_id;
+												modelNumber = input.model_number;
+												input.manufacturer = input.manufacturer;
+												// Search for vendor in vendor_directory - assuming manufacturer matches vendor_name
+												// or there's a vendor lookup field in asset_registry
+												// Since no direct vendor lookup exists in asset_registry, we search by manufacturer
+												vendorRecords = vendor_directory[vendor_name == input.manufacturer];
+												// Check if vendor record exists
+												if(vendorRecords.count() > 0)
+												{
+													// Get the first vendor record
+													vendorRecord = vendorRecords;
+													vendorEmail = vendorRecord.vendor_email;
+													vendorName = vendorRecord.vendor_name;
+													// Check if vendor email is present
+													if(!vendorEmail.isNull() && !vendorEmail.isEmpty())
+													{
+														// Prepare email subject
+														subject = "Warranty Expiry Alert: " + assetName;
+														// Prepare email message
+														message = "Dear " + vendorName + ",\n\n";
+														message = message.concat("This is to inform you that the warranty for the following asset is approaching its end date:\n\n");
+														message = message.concat("Asset Name: " + assetName + "\n");
+														message = message.concat("Model Number: " + modelNumber + "\n");
+														message = message.concat("Manufacturer: " + input.manufacturer + "\n");
+														message = message.concat("Warranty End Date: " + warrantyEndDate.toString() + "\n\n");
+														message = message.concat("Please take necessary actions to renew the warranty or arrange for maintenance.\n\n");
+														message = message.concat("Best Regards,\nAsset Management Team");
+														// Send email to vendor
+														sendmail
+														[
+															from :zoho.loginuserid
+															to :vendorEmail
+															subject :subject
+															message :message
+															content type :Plain Text
+														]
+													}
+												}
+											}
+										}
+					)
+					}
+				}
+			}
+		}
+
+
+		blueprint
+		{
+    			maintenance_ticket_lifecycle as "Maintenance Ticket Lifecycle"
+    			{
+        			type = Blueprint
+        			form = maintenance_request
+        			start
+        			{
+            			start stage = "Request Submitted"
+        			}
+        			stages
+        			{
+           			"Request Submitted"
+           			{
+           			}
+           			"Request Under Review"
+           			{
+           			}
+           			"Request Rejected"
+           			{
+           			}
+           			"Request Approved"
+           			{
+           			}
+           			"Request Awaiting Parts"
+           			{
+           			}
+           			"Technician Assigned"
+           			{
+           			}
+           			"Request Pending Approval"
+           			{
+           			}
+           			"Work In Progress"
+           			{
+           			}
+           			"Technician Reassigned"
+           			{
+           			}
+           			"Diagnosis Complete"
+           			{
+           			}
+           			"Work On Hold"
+           			{
+           			}
+           			"Repair In Progress"
+           			{
+           			}
+           			"Repair Complete"
+           			{
+           			}
+           			"Pending Verification"
+           			{
+           			}
+           			"Request Closed"
+           			{
+           			}
+        			}
+        			transitions
+        			{
+    				approve_additional as "Approve Additional Request"
+    				{
+         				type = normal
+         				from stage = "Request Pending Approval"
+         				to stage = "Request Approved"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				approve_request as "Approve Request"
+    				{
+         				type = normal
+         				from stage = "Request Under Review"
+         				to stage = "Request Approved"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				assign_technician as "Assign Technician"
+    				{
+         				type = normal
+         				from stage = "Request Approved"
+         				to stage = "Technician Assigned"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				begin_repair as "Begin Repair"
+    				{
+         				type = normal
+         				from stage = "Diagnosis Complete"
+         				to stage = "Repair In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				cancel_hold as "Cancel Work Due to Hold"
+    				{
+         				type = normal
+         				from stage = "Work On Hold"
+         				to stage = "Request Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				check_parts as "Request Parts Availability Check"
+    				{
+         				type = normal
+         				from stage = "Request Under Review"
+         				to stage = "Request Awaiting Parts"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				complete_diagnosis as "Complete Diagnosis"
+    				{
+         				type = normal
+         				from stage = "Work In Progress"
+         				to stage = "Diagnosis Complete"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				confirm_parts as "Confirm Parts Availability"
+    				{
+         				type = normal
+         				from stage = "Request Awaiting Parts"
+         				to stage = "Request Approved"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				mark_complete as "Mark Repair Complete"
+    				{
+         				type = normal
+         				from stage = "Repair In Progress"
+         				to stage = "Repair Complete"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				pause_repair as "Pause Repair"
+    				{
+         				type = normal
+         				from stage = "Repair In Progress"
+         				to stage = "Work On Hold"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				pause_work as "Pause Work"
+    				{
+         				type = normal
+         				from stage = "Work In Progress"
+         				to stage = "Work On Hold"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reassign_technician as "Reassign Technician"
+    				{
+         				type = normal
+         				from stage = "Technician Assigned"
+         				to stage = "Technician Reassigned"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_additional as "Reject Additional Request"
+    				{
+         				type = normal
+         				from stage = "Request Pending Approval"
+         				to stage = "Request Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_no_parts as "Reject Due to Parts Unavailability"
+    				{
+         				type = normal
+         				from stage = "Request Awaiting Parts"
+         				to stage = "Request Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_repair as "Reject Repair Request"
+    				{
+         				type = normal
+         				from stage = "Diagnosis Complete"
+         				to stage = "Request Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_request as "Reject Request"
+    				{
+         				type = normal
+         				from stage = "Request Submitted"
+         				to stage = "Request Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_approval as "Request Additional Approval"
+    				{
+         				type = normal
+         				from stage = "Request Approved"
+         				to stage = "Request Pending Approval"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_rework as "Request Re-work"
+    				{
+         				type = normal
+         				from stage = "Repair Complete"
+         				to stage = "Repair In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				resume_work as "Resume Work"
+    				{
+         				type = normal
+         				from stage = "Work On Hold"
+         				to stage = "Work In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				start_work as "Start Work"
+    				{
+         				type = normal
+         				from stage = "Technician Assigned"
+         				to stage = "Work In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				submit_for_review as "Submit for Review"
+    				{
+         				type = normal
+         				from stage = "Request Submitted"
+         				to stage = "Request Under Review"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				submit_verification as "Submit for Verification"
+    				{
+         				type = normal
+         				from stage = "Repair Complete"
+         				to stage = "Pending Verification"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				verify_close as "Verify and Close"
+    				{
+         				type = normal
+         				from stage = "Pending Verification"
+         				to stage = "Request Closed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+        			}
+    			}
+		}
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Maintenance Coordinator"
+			{
+				name = "Maintenance Coordinator"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Review and prioritize incoming maintenance requests based on severity and impact. \n"
+				ModulePermissions
+				{
+					vendor_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							vendor_directory_Report={"View"}
+							vendor_directory_by_vendor_status={"View"}
+						}
+					}
+					employee_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_directory_Report={"View"}
+							employee_directory_by_employment_status={"View"}
+						}
+					}
+					asset_allocation
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_allocation_Report={"View"}
+						}
+					}
+					department_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							department_directory_Report={"View"}
+						}
+					}
+					asset_audit_history
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_audit_history_Report={"View"}
+						}
+					}
+					asset_registry
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_registry_by_asset_category={"View"}
+							asset_registry_Report={"View"}
+						}
+					}
+					maintenance_request
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							maintenance_request_Report={"View","Edit","Delete"}
+							maintenance_request_by_ticket_status={"View","Edit","Delete"}
+						}
+					}
+				}
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Asset Administrator"
+			{
+				name = "Asset Administrator"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Register new assets and maintain the central asset registry with accurate details. \n"
+				ModulePermissions
+				{
+					vendor_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							vendor_directory_Report={"View"}
+							vendor_directory_by_vendor_status={"View"}
+						}
+					}
+					employee_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_directory_Report={"View"}
+							employee_directory_by_employment_status={"View"}
+						}
+					}
+					asset_allocation
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_allocation_Report={"View","Edit","Delete"}
+						}
+					}
+					department_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							department_directory_Report={"View"}
+						}
+					}
+					asset_audit_history
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_audit_history_Report={"View","Edit","Delete"}
+						}
+					}
+					asset_registry
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_registry_by_asset_category={"View","Edit","Delete"}
+							asset_registry_Report={"View","Edit","Delete"}
+						}
+					}
+					maintenance_request
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							maintenance_request_Report={"View"}
+							maintenance_request_by_ticket_status={"View"}
+						}
+					}
+				}
+			}
+			"Asset Allocator"
+			{
+				name = "Asset Allocator"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Assign available assets to employees based on departmental needs and job roles. \n"
+				ModulePermissions
+				{
+					vendor_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							vendor_directory_Report={"View"}
+							vendor_directory_by_vendor_status={"View"}
+						}
+					}
+					employee_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_directory_Report={"View"}
+							employee_directory_by_employment_status={"View"}
+						}
+					}
+					asset_allocation
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_allocation_Report={"View","Edit","Delete"}
+						}
+					}
+					department_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							department_directory_Report={"View"}
+						}
+					}
+					asset_audit_history
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_audit_history_Report={"View"}
+						}
+					}
+					asset_registry
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_registry_by_asset_category={"View"}
+							asset_registry_Report={"View"}
+						}
+					}
+					maintenance_request
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							maintenance_request_Report={"View"}
+							maintenance_request_by_ticket_status={"View"}
+						}
+					}
+				}
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Department Manager"
+			{
+				name = "Department Manager"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Oversee asset usage and allocation within their specific department. \n"
+				ModulePermissions
+				{
+					vendor_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							vendor_directory_Report={"View"}
+							vendor_directory_by_vendor_status={"View"}
+						}
+					}
+					employee_directory
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_directory_Report={"View","Edit","Delete"}
+							employee_directory_by_employment_status={"View","Edit","Delete"}
+						}
+					}
+					asset_allocation
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_allocation_Report={"View","Edit","Delete"}
+						}
+					}
+					department_directory
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							department_directory_Report={"View","Edit","Delete"}
+						}
+					}
+					asset_audit_history
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_audit_history_Report={"View"}
+						}
+					}
+					asset_registry
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_registry_by_asset_category={"View"}
+							asset_registry_Report={"View"}
+						}
+					}
+					maintenance_request
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							maintenance_request_Report={"View"}
+							maintenance_request_by_ticket_status={"View"}
+						}
+					}
+				}
+			}
+			"Employee"
+			{
+				name = "Employee"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Report hardware or software issues through the maintenance request system. \n"
+				ModulePermissions
+				{
+					vendor_directory
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							vendor_directory_Report={"View"}
+							vendor_directory_by_vendor_status={"View"}
+						}
+					}
+					employee_directory
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_directory_Report={"View"}
+							employee_directory_by_employment_status={"View"}
+						}
+					}
+					asset_allocation
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_allocation_Report={"View"}
+						}
+					}
+					department_directory
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							department_directory_Report={"View"}
+						}
+					}
+					asset_audit_history
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_audit_history_Report={"View"}
+						}
+					}
+					asset_registry
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_registry_by_asset_category={"View"}
+							asset_registry_Report={"View"}
+						}
+					}
+					maintenance_request
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							maintenance_request_Report={"View"}
+							maintenance_request_by_ticket_status={"View"}
+						}
+					}
+				}
+			}
+			"Vendor"
+			{
+				name = "Vendor"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Update contact information and service categories in the vendor directory. \n"
+				ModulePermissions
+				{
+					vendor_directory
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							vendor_directory_Report={"View","Edit","Delete"}
+							vendor_directory_by_vendor_status={"View","Edit","Delete"}
+						}
+					}
+					employee_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_directory_Report={"View"}
+							employee_directory_by_employment_status={"View"}
+						}
+					}
+					asset_allocation
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_allocation_Report={"View"}
+						}
+					}
+					department_directory
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							department_directory_Report={"View"}
+						}
+					}
+					asset_audit_history
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_audit_history_Report={"View"}
+						}
+					}
+					asset_registry
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							asset_registry_by_asset_category={"View"}
+							asset_registry_Report={"View"}
+						}
+					}
+					maintenance_request
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							maintenance_request_Report={"View"}
+							maintenance_request_by_ticket_status={"View"}
+						}
+					}
+				}
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "ASS"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	web
+	{
+		forms
+		{
+			form asset_allocation
+			{
+				label placement = left
+			}
+			form asset_audit_history
+			{
+				label placement = left
+			}
+			form asset_registry
+			{
+				label placement = left
+			}
+			form department_directory
+			{
+				label placement = left
+			}
+			form employee_directory
+			{
+				label placement = left
+			}
+			form maintenance_request
+			{
+				label placement = left
+			}
+			form user_feedback_simple
+			{
+				label placement = left
+			}
+			form vendor_directory
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report asset_allocation_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								asset as "Asset"
+								employee as "Employee"
+								allocation_date as "Allocation Date"
+								expected_return_date as "Expected Return Date"
+								actual_return_date as "Actual Return Date"
+								allocation_purpose as "Allocation Purpose"
+								handover_notes as "Handover Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								asset as "Asset"
+								employee as "Employee"
+								allocation_date as "Allocation Date"
+								expected_return_date as "Expected Return Date"
+								actual_return_date as "Actual Return Date"
+								allocation_purpose as "Allocation Purpose"
+								handover_notes as "Handover Notes"
+							)
+						)
+						datablock2
+						(
+		     				title = "Asset"
+		     				related field = asset
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								manufacturer as "Manufacturer"
+								model_number as "Model Number"
+								serial_number as "Serial Number"
+								purchase_date as "Purchase Date"
+								purchase_cost as "Purchase Cost"
+								warranty_start_date as "Warranty Start Date"
+								warranty_end_date as "Warranty End Date"
+								asset_condition as "Asset Condition"
+								asset_status as "Asset Status"
+								qr_code_url as "QR Code URL"
+								notes as "Notes"
+							)
+						)
+						datablock3
+						(
+		     				title = "Employee"
+		     				related field = employee
+							fields
+							(
+								employee_name as "Employee Name"
+								work_email as "Work Email"
+								designation as "Designation"
+								contact_number as "Contact Number"
+								employment_status as "Employment Status"
+								department as "Department"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report employee_directory_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								employee_name as "Employee Name"
+								work_email as "Work Email"
+								designation as "Designation"
+								contact_number as "Contact Number"
+								employment_status as "Employment Status"
+								department as "Department"
+								department.Modified_Time as "Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								employee_name as "Employee Name"
+								work_email as "Work Email"
+								designation as "Designation"
+								contact_number as "Contact Number"
+								employment_status as "Employment Status"
+								department as "Department"
+							)
+						)
+						datablock2
+						(
+		     				title = "Department"
+		     				related field = department
+							fields
+							(
+								department_name as "Department Name"
+								department_manager as "Department Manager"
+								department_location as "Department Location"
+								description as "Description"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report employee_directory_by_employment_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								employee_name as "Employee Name"
+								designation as "Designation"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								employee_name as "Employee Name"
+								work_email as "Work Email"
+								designation as "Designation"
+								contact_number as "Contact Number"
+								employment_status as "Employment Status"
+								department as "Department"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report asset_audit_history_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								audit_id as "Audit ID"
+								asset as "Asset"
+								action_performed as "Action Performed"
+								previous_value as "Previous Value"
+								new_value as "New Value"
+								performed_by as "Performed By"
+								timestamp as "Timestamp"
+								related_request_id as "Related Request ID"
+								remarks as "Remarks"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								audit_id as "Audit ID"
+								asset as "Asset"
+								action_performed as "Action Performed"
+								previous_value as "Previous Value"
+								new_value as "New Value"
+								performed_by as "Performed By"
+								timestamp as "Timestamp"
+								related_request_id as "Related Request ID"
+								remarks as "Remarks"
+							)
+						)
+						datablock2
+						(
+		     				title = "Asset"
+		     				related field = asset
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								manufacturer as "Manufacturer"
+								model_number as "Model Number"
+								serial_number as "Serial Number"
+								purchase_date as "Purchase Date"
+								purchase_cost as "Purchase Cost"
+								warranty_start_date as "Warranty Start Date"
+								warranty_end_date as "Warranty End Date"
+								asset_condition as "Asset Condition"
+								asset_status as "Asset Status"
+								qr_code_url as "QR Code URL"
+								notes as "Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report asset_registry_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								manufacturer as "Manufacturer"
+								model_number as "Model Number"
+								serial_number as "Serial Number"
+								purchase_date as "Purchase Date"
+								purchase_cost as "Purchase Cost"
+								warranty_start_date as "Warranty Start Date"
+								warranty_end_date as "Warranty End Date"
+								asset_condition as "Asset Condition"
+								asset_status as "Asset Status"
+								qr_code_url as "QR Code URL"
+								notes as "Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								manufacturer as "Manufacturer"
+								model_number as "Model Number"
+								serial_number as "Serial Number"
+								purchase_date as "Purchase Date"
+								purchase_cost as "Purchase Cost"
+								warranty_start_date as "Warranty Start Date"
+								warranty_end_date as "Warranty End Date"
+								asset_condition as "Asset Condition"
+								asset_status as "Asset Status"
+								qr_code_url as "QR Code URL"
+								notes as "Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report asset_registry_by_asset_category
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								asset_id as "Asset ID"
+								manufacturer as "Manufacturer"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								manufacturer as "Manufacturer"
+								model_number as "Model Number"
+								serial_number as "Serial Number"
+								purchase_date as "Purchase Date"
+								purchase_cost as "Purchase Cost"
+								warranty_start_date as "Warranty Start Date"
+								warranty_end_date as "Warranty End Date"
+								asset_condition as "Asset Condition"
+								asset_status as "Asset Status"
+								qr_code_url as "QR Code URL"
+								notes as "Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report maintenance_request_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								ticket_id as "Ticket ID"
+								asset as "Asset"
+								reported_by as "Reported By"
+								issue_category as "Issue Category"
+								issue_description as "Issue Description"
+								priority as "Priority"
+								request_date as "Request Date"
+								assigned_technician as "Assigned Technician"
+								ticket_status as "Ticket Status"
+								diagnosis as "Diagnosis"
+								repair_cost as "Repair Cost"
+								parts_details as "Parts Details"
+								resolution_notes as "Resolution Notes"
+								completion_date as "Completion Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								ticket_id as "Ticket ID"
+								asset as "Asset"
+								reported_by as "Reported By"
+								issue_category as "Issue Category"
+								issue_description as "Issue Description"
+								priority as "Priority"
+								request_date as "Request Date"
+								assigned_technician as "Assigned Technician"
+								ticket_status as "Ticket Status"
+								diagnosis as "Diagnosis"
+								repair_cost as "Repair Cost"
+								parts_details as "Parts Details"
+								resolution_notes as "Resolution Notes"
+								completion_date as "Completion Date"
+							)
+						)
+						datablock2
+						(
+		     				title = "Asset"
+		     				related field = asset
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								manufacturer as "Manufacturer"
+								model_number as "Model Number"
+								serial_number as "Serial Number"
+								purchase_date as "Purchase Date"
+								purchase_cost as "Purchase Cost"
+								warranty_start_date as "Warranty Start Date"
+								warranty_end_date as "Warranty End Date"
+								asset_condition as "Asset Condition"
+								asset_status as "Asset Status"
+								qr_code_url as "QR Code URL"
+								notes as "Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report maintenance_request_by_ticket_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								reported_by as "Reported By"
+								assigned_technician as "Assigned Technician"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								ticket_id as "Ticket ID"
+								asset as "Asset"
+								reported_by as "Reported By"
+								issue_category as "Issue Category"
+								issue_description as "Issue Description"
+								priority as "Priority"
+								request_date as "Request Date"
+								assigned_technician as "Assigned Technician"
+								ticket_status as "Ticket Status"
+								diagnosis as "Diagnosis"
+								repair_cost as "Repair Cost"
+								parts_details as "Parts Details"
+								resolution_notes as "Resolution Notes"
+								completion_date as "Completion Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report department_directory_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								department_name as "Department Name"
+								department_manager as "Department Manager"
+								department_location as "Department Location"
+								description as "Description"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								department_name as "Department Name"
+								department_manager as "Department Manager"
+								department_location as "Department Location"
+								description as "Description"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report vendor_directory_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								vendor_name as "Vendor Name"
+								contact_person as "Contact Person"
+								vendor_email as "Vendor Email"
+								vendor_phone as "Vendor Phone"
+								service_category as "Service Category"
+								vendor_address as "Vendor Address"
+								vendor_status as "Vendor Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								vendor_name as "Vendor Name"
+								contact_person as "Contact Person"
+								vendor_email as "Vendor Email"
+								vendor_phone as "Vendor Phone"
+								service_category as "Service Category"
+								vendor_address as "Vendor Address"
+								vendor_status as "Vendor Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report vendor_directory_by_vendor_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								contact_person as "Contact Person"
+								vendor_name as "Vendor Name"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								vendor_name as "Vendor Name"
+								contact_person as "Contact Person"
+								vendor_email as "Vendor Email"
+								vendor_phone as "Vendor Phone"
+								service_category as "Service Category"
+								vendor_address as "Vendor Address"
+								vendor_status as "Vendor Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report Maintenance_Requests_Overview
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								ticket_id as "Ticket ID"
+								asset as "Asset"
+								reported_by as "Reported By"
+								issue_category as "Issue Category"
+								issue_description as "Issue Description"
+								priority as "Priority"
+								request_date as "Request Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								ticket_id as "Ticket ID"
+								asset as "Asset"
+								reported_by as "Reported By"
+								issue_category as "Issue Category"
+								issue_description as "Issue Description"
+								priority as "Priority"
+								request_date as "Request Date"
+								assigned_technician as "Assigned Technician"
+								ticket_status as "Ticket Status"
+								diagnosis as "Diagnosis"
+								repair_cost as "Repair Cost"
+								parts_details as "Parts Details"
+								resolution_notes as "Resolution Notes"
+								completion_date as "Completion Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report smart_allocation_report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								asset_status as "Asset Status"
+								asset_condition as "Asset Condition"
+								serial_number as "Serial Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Available Assets for Allocation"
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								asset_status as "Asset Status"
+								asset_condition as "Asset Condition"
+								serial_number as "Serial Number"
+								manufacturer as "Manufacturer"
+								model_number as "Model Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						)
+				)
+			}
+			report anomaly_detection_report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								asset_id as "Asset ID"
+								serial_number as "Serial Number"
+								asset_status as "Asset Status"
+								asset_condition as "Asset Condition"
+								purchase_cost as "Purchase Cost"
+								notes as "Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Asset Anomalies"
+							fields
+							(
+								asset_id as "Asset ID"
+								serial_number as "Serial Number"
+								asset_status as "Asset Status"
+								asset_condition as "Asset Condition"
+								purchase_cost as "Purchase Cost"
+								notes as "Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						)
+				)
+			}
+			report predictive_maintenance_report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								asset_status as "Asset Status"
+								asset_condition as "Asset Condition"
+								purchase_date as "Purchase Date"
+								purchase_cost as "Purchase Cost"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Asset Maintenance Risk"
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								asset_status as "Asset Status"
+								asset_condition as "Asset Condition"
+								purchase_date as "Purchase Date"
+								warranty_end_date as "Warranty End Date"
+								purchase_cost as "Purchase Cost"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						)
+				)
+			}
+			report maintenance_analytics_report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								ticket_id as "Ticket ID"
+								asset as "Asset"
+								issue_category as "Issue Category"
+								priority as "Priority"
+								ticket_status as "Ticket Status"
+								request_date as "Request Date"
+								repair_cost as "Repair Cost"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Maintenance Request Details"
+							fields
+							(
+								ticket_id as "Ticket ID"
+								asset as "Asset"
+								issue_category as "Issue Category"
+								priority as "Priority"
+								ticket_status as "Ticket Status"
+								request_date as "Request Date"
+								repair_cost as "Repair Cost"
+								assigned_technician as "Assigned Technician"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						)
+				)
+			}
+			report ai_reports_summary
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -2
+	     				recordsperrow = 3
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								asset_status as "Asset Status"
+								asset_condition as "Asset Condition"
+								purchase_cost as "Purchase Cost"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Asset Inventory Summary"
+							fields
+							(
+								asset_id as "Asset ID"
+								asset_category as "Asset Category"
+								asset_status as "Asset Status"
+								asset_condition as "Asset Condition"
+								purchase_date as "Purchase Date"
+								purchase_cost as "Purchase Cost"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						)
+				)
+			}
+			report recent_negative_feedback
+			{
+				quickview
+				(
+					layout
+					(
+						negative_feedback_list
+						(
+		     				title = "Recent Negative Feedback"
+							fields
+							(
+								name_of_user as "Name of User"
+								email as "Email"
+								feedback as "Feedback"
+								sentiment as "Sentiment"
+								analysis_status as "Analysis Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							View Record   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						negative_feedback_details
+						(
+		     				title = "Negative Feedback Details"
+							fields
+							(
+								name_of_user as "Name of User"
+								email as "Email"
+								feedback as "Feedback"
+								sentiment as "Sentiment"
+								analysis_status as "Analysis Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						)
+				)
+			}
+			report all_feedback
+			{
+				quickview
+				(
+					layout
+					(
+						feedback_list
+						(
+		     				title = "All Feedback"
+							fields
+							(
+								name_of_user as "Name of User"
+								email as "Email"
+								feedback as "Feedback"
+								sentiment as "Sentiment"
+								analysis_status as "Analysis Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							View Record   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						feedback_details
+						(
+		     				title = "Feedback Details"
+							fields
+							(
+								name_of_user as "Name of User"
+								email as "Email"
+								feedback as "Feedback"
+								sentiment as "Sentiment"
+								analysis_status as "Analysis Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						)
+				)
+			}
+			report sentiment_counts
+			{
+				quickview
+				(
+					layout
+					(
+						sentiment_counts
+						(
+		     				title = "Sentiment Counts"
+							fields
+							(
+								sentiment as "Sentiment"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							View Record   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						sentiment_summary_details
+						(
+		     				title = "Sentiment Summary"
+							fields
+							(
+								sentiment as "Sentiment"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Asset_Command_Center
+				{
+					displayname = "Dashboard"
+					icon = "media-1-focus-32"
+					page Dashboard
+					{
+						icon = "design-command"
+					}
+				}
+				section Section_2
+				{
+					displayname = "Asset Allocations"
+					icon = "business-money-coins"
+					form  asset_allocation
+					{
+						icon = "ui-1-bold-add"
+					}
+					report asset_allocation_Report
+					{
+						icon = "business-stock"
+					}
+				}
+				section Section_3
+				{
+					displayname = "Employee Directory"
+					icon = "business-business-contact-89"
+					form  employee_directory
+					{
+						icon = "ui-1-bold-add"
+					}
+					report employee_directory_Report
+					{
+						icon = "business-business-contact-89"
+					}
+					report employee_directory_by_employment_status
+					{
+						icon = "health-heartbeat-16"
+					}
+				}
+				section Section_4
+				{
+					displayname = "Asset Audit Histories"
+					icon = "business-math"
+					form  asset_audit_history
+					{
+						icon = "ui-1-bold-add"
+					}
+					report asset_audit_history_Report
+					{
+						icon = "travel-world"
+					}
+				}
+				section Section_5
+				{
+					displayname = "Asset Registries"
+					icon = "shopping-pos"
+					form  asset_registry
+					{
+						icon = "ui-1-bold-add"
+					}
+					report asset_registry_Report
+					{
+						icon = "travel-world"
+					}
+					report asset_registry_by_asset_category
+					{
+						icon = "business-hierarchy-53"
+					}
+				}
+				section Section_6
+				{
+					displayname = "Maintenance Requests"
+					icon = "tech-2-l-check"
+					form  maintenance_request
+					{
+						icon = "ui-1-bold-add"
+					}
+					report maintenance_request_Report
+					{
+						icon = "travel-world"
+					}
+					report maintenance_request_by_ticket_status
+					{
+						icon = "media-1-ticket-75"
+					}
+					report Maintenance_Requests_Overview
+					{
+						icon = "tech-headphones"
+					}
+				}
+				section Section_7
+				{
+					displayname = "Department Directory"
+					icon = "furniture-cabinet"
+					form  department_directory
+					{
+						icon = "ui-1-bold-add"
+					}
+					report department_directory_Report
+					{
+						icon = "business-laptop-71"
+					}
+				}
+				section Section_8
+				{
+					displayname = "Vendor Directory"
+					icon = "shopping-shop-location"
+					form  vendor_directory
+					{
+						icon = "ui-1-bold-add"
+					}
+					report vendor_directory_Report
+					{
+						icon = "travel-info"
+					}
+					report vendor_directory_by_vendor_status
+					{
+						icon = "shopping-shop-location"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section AI_Powered_Reports
+				{
+					displayname = "AI-Powered Reports"
+					icon = "tech-desktop"
+					report predictive_maintenance_report
+					{
+						icon = "tech-desktop"
+					}
+					report smart_allocation_report
+					{
+						icon = "tech-desktop"
+					}
+					report anomaly_detection_report
+					{
+						icon = "tech-desktop"
+					}
+					report ai_reports_summary
+					{
+						icon = "tech-desktop"
+					}
+					report maintenance_analytics_report
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space feedback_space
+			{
+				displayname = "Feedback"
+				icon = "tech-keyboard"
+
+				section feedback_section
+				{
+					displayname = "Feedback"
+					icon = "tech-keyboard"
+					form  user_feedback_simple
+					{
+						icon = "tech-keyboard"
+					}
+					report all_feedback
+					{
+						icon = "tech-keyboard"
+					}
+					report recent_negative_feedback
+					{
+						icon = "tech-keyboard"
+					}
+					report sentiment_counts
+					{
+						icon = "tech-keyboard"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = solid
+					show = {space,section,component}
+				}
+			}
+		}
+		customize
+		{
+			new theme = 11
+			font = "poppins"
+			color options
+			{
+				color = "5"
+			}
+			logo
+			{
+				preference = "none"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form asset_allocation
+			{
+				label placement = auto
+			}
+			form asset_audit_history
+			{
+				label placement = auto
+			}
+			form asset_registry
+			{
+				label placement = auto
+			}
+			form department_directory
+			{
+				label placement = auto
+			}
+			form employee_directory
+			{
+				label placement = auto
+			}
+			form maintenance_request
+			{
+				label placement = auto
+			}
+			form user_feedback_simple
+			{
+				label placement = auto
+			}
+			form vendor_directory
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form asset_allocation
+			{
+				label placement = auto
+			}
+			form asset_audit_history
+			{
+				label placement = auto
+			}
+			form asset_registry
+			{
+				label placement = auto
+			}
+			form department_directory
+			{
+				label placement = auto
+			}
+			form employee_directory
+			{
+				label placement = auto
+			}
+			form maintenance_request
+			{
+				label placement = auto
+			}
+			form user_feedback_simple
+			{
+				label placement = auto
+			}
+			form vendor_directory
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = red
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
